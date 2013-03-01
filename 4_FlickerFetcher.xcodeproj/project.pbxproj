@@ -19,6 +19,7 @@
 		1CF25D8E16E07FC800248BEA /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CF25D8C16E07FC800248BEA /* MainStoryboard_iPhone.storyboard */; };
 		1CF25D9116E07FC800248BEA /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CF25D8F16E07FC800248BEA /* MainStoryboard_iPad.storyboard */; };
 		1CF25D9416E07FC800248BEA /* FlickerFetcherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF25D9316E07FC800248BEA /* FlickerFetcherViewController.m */; };
+		1CF25D9D16E07FEB00248BEA /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CF25D9B16E07FEB00248BEA /* FlickrFetcher.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,9 @@
 		1CF25D9016E07FC800248BEA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		1CF25D9216E07FC800248BEA /* FlickerFetcherViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlickerFetcherViewController.h; sourceTree = "<group>"; };
 		1CF25D9316E07FC800248BEA /* FlickerFetcherViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlickerFetcherViewController.m; sourceTree = "<group>"; };
+		1CF25D9A16E07FEB00248BEA /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
+		1CF25D9B16E07FEB00248BEA /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
+		1CF25D9C16E07FEB00248BEA /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,9 @@
 				1CF25D8F16E07FC800248BEA /* MainStoryboard_iPad.storyboard */,
 				1CF25D9216E07FC800248BEA /* FlickerFetcherViewController.h */,
 				1CF25D9316E07FC800248BEA /* FlickerFetcherViewController.m */,
+				1CF25D9A16E07FEB00248BEA /* FlickrFetcher.h */,
+				1CF25D9B16E07FEB00248BEA /* FlickrFetcher.m */,
+				1CF25D9C16E07FEB00248BEA /* FlickrAPIKey.h */,
 				1CF25D7B16E07FC800248BEA /* Supporting Files */,
 			);
 			path = 4_FlickerFetcher;
@@ -181,6 +188,7 @@
 				1CF25D8116E07FC800248BEA /* main.m in Sources */,
 				1CF25D8516E07FC800248BEA /* FlickerFetcherAppDelegate.m in Sources */,
 				1CF25D9416E07FC800248BEA /* FlickerFetcherViewController.m in Sources */,
+				1CF25D9D16E07FEB00248BEA /* FlickrFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
