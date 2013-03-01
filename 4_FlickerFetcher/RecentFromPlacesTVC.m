@@ -1,21 +1,20 @@
 //
-//  RecentPlacesTVC.m
+//  RecentFromPlacesTVC.m
 //  4_FlickerFetcher
 //
-//  Created by Zachary Fleischman on 2/28/13.
+//  Created by Zachary Fleischman on 3/1/13.
 //  Copyright (c) 2013 Zachary Fleischman. All rights reserved.
 //
 
-#import "RecentPlacesTVC.h"
-#import "Flickrfetcher.h"
+#import "RecentFromPlacesTVC.h"
+#import "FlickrFetcher.h"
 
-@interface RecentPlacesTVC ()
+@interface RecentFromPlacesTVC ()
 @property NSArray *picturesData;
 @end
 
-@implementation RecentPlacesTVC
+@implementation RecentFromPlacesTVC
 @synthesize picturesData = _picturesData;
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -28,9 +27,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    self.picturesData = [defaults objectForKey:@"FlickrFetcherRecentPictures"];
+
+    self.picturesData = [FlickrFetcher photosInPlace:self.place maxResults:50];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,7 +46,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Recent Picture Cell";
+    static NSString *CellIdentifier = @"Top Place Picture Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     if(!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     
@@ -59,21 +57,24 @@
     
     cell.detailTextLabel.text = @"Unknown";
     if([picInfo valueForKeyPath:@"description._content"]) cell.detailTextLabel.text = [picInfo valueForKeyPath:@"description._content"];
-
-    
     return cell;
 }
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *recent = [[defaults objectForKey:@"FlickrFetcherRecentPictures"] mutableCopy];
+    if(!recent) recent = [[NSMutableArray alloc] init];
+    
+    [recent addObject:[self.picturesData objectAtIndex:indexPath.row]];
+
+    if(recent.count > 20) {
+        [recent removeObjectAtIndex:0];
+    }
+    
+    [defaults setObject:[recent copy] forKey:@"FlickrFetcherRecentPictures"];
 }
 
 @end
