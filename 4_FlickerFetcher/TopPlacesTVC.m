@@ -12,13 +12,11 @@
 
 @interface TopPlacesTVC ()
 @property NSArray *topData;
-@property NSNumber *selectedPlace;
 @end
 
 @implementation TopPlacesTVC
 
 @synthesize topData = _topData;
-@synthesize selectedPlace = _selectedPlace;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -48,7 +46,9 @@
         RecentFromPlacesTVC *dest = segue.destinationViewController;
         
         //selectedPlace is set when a cell is selected
-        dest.place = [self.topData objectAtIndex:[self.selectedPlace intValue]];
+        NSDictionary *place = [self.topData objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        dest.place = place;
+        dest.navigationItem.title = [[[place objectForKey:@"_content"] componentsSeparatedByString:@", "] objectAtIndex:0];
         
     }
 }
@@ -86,7 +86,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedPlace = [NSNumber numberWithInt:indexPath.row];
+    
 }
 
 @end

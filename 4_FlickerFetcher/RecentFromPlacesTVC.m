@@ -8,6 +8,7 @@
 
 #import "RecentFromPlacesTVC.h"
 #import "FlickrFetcher.h"
+#import "PhotoScrollViewController.h"
 
 @interface RecentFromPlacesTVC ()
 @property NSArray *picturesData;
@@ -15,6 +16,7 @@
 
 @implementation RecentFromPlacesTVC
 @synthesize picturesData = _picturesData;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -37,6 +39,20 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"View Photo From Place"]) {
+        PhotoScrollViewController *dest = segue.destinationViewController;
+        NSDictionary *photo = [self.picturesData objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+        dest.photo = photo;
+        if([photo objectForKey:@"title"] != @"") {
+             dest.navigationItem.title =[photo objectForKey:@"title"];
+        } else {
+            dest.navigationItem.title = @"Unknown";
+        }
+        
+    }
+}
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
