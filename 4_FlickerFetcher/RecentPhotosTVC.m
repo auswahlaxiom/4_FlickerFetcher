@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Zachary Fleischman. All rights reserved.
 //
 
-#import "RecentPlacesTVC.h"
+#import "RecentPhotosTVC.h"
 #import "Flickrfetcher.h"
 
-@interface RecentPlacesTVC ()
+@interface RecentPhotosTVC ()
 @property NSArray *picturesData;
 @end
 
-@implementation RecentPlacesTVC
+@implementation RecentPhotosTVC
 @synthesize picturesData = _picturesData;
 
 - (id)initWithStyle:(UITableViewStyle)style

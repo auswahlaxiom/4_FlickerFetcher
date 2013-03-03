@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RecentPlacesTVC : UITableViewController
+@interface RecentPhotosTVC : UITableViewController
 
 @end
