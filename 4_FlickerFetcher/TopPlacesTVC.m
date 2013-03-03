@@ -32,8 +32,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    self.topData = [FlickrFetcher topPlaces];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"_content" ascending:YES];
+    self.topData=[[FlickrFetcher topPlaces] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
 }
 
 - (void)didReceiveMemoryWarning

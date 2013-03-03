@@ -53,10 +53,10 @@
     NSDictionary *picInfo = [self.picturesData objectAtIndex:indexPath.row];
     
     cell.textLabel.text = @"Unknown";
-    if([picInfo objectForKey:@"title"]) cell.textLabel.text = [picInfo objectForKey:@"title"];
+    if([picInfo objectForKey:@"title"] != @"") cell.textLabel.text = [picInfo objectForKey:@"title"];
     
     cell.detailTextLabel.text = @"Unknown";
-    if([picInfo valueForKeyPath:@"description._content"]) cell.detailTextLabel.text = [picInfo valueForKeyPath:@"description._content"];
+    if([picInfo valueForKeyPath:@"description._content"] != @"") cell.detailTextLabel.text = [picInfo valueForKeyPath:@"description._content"];
     return cell;
 }
 
@@ -64,15 +64,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSDictionary *selectedPic = [self.picturesData objectAtIndex:indexPath.row];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *recent = [[defaults objectForKey:@"FlickrFetcherRecentPictures"] mutableCopy];
-
     
-    NSMutableArray *newRecent = [[NSMutableArray alloc] initWithObjects:[self.picturesData objectAtIndex:indexPath.row], nil];
+    //make sure it isn't already in there
+    if(recent) {
+        for(NSDictionary *pic in recent) {
+            if([pic objectForKey:@"id"] == [selectedPic objectForKey:@"id"]) return;
+        }
+    }
+    
+    //create a new recent list with the selected one on top
+    NSMutableArray *newRecent = [[NSMutableArray alloc] initWithObjects:selectedPic, nil];
     if(recent) {
         [newRecent addObjectsFromArray:recent];
     }
     
+    //trim to only 20 pictures
     if(newRecent.count > 20) {
         [newRecent removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(20, (newRecent.count-20))]];
     }

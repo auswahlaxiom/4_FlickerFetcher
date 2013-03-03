@@ -144,8 +144,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Fzk-QV-Ewy" kind="relationship" relationship="viewControllers" id="pmR-ak-3ue"/>
                         <segue destination="3K7-kc-JDj" kind="relationship" relationship="viewControllers" id="t2g-5n-YDg"/>
+                        <segue destination="Fzk-QV-Ewy" kind="relationship" relationship="viewControllers" id="pmR-ak-3ue"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v0b-IQ-iwx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,6 +172,17 @@
             <point key="canvasLocation" x="1274" y="34"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="RecentFromPlacesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentFromPlacesTVC.h"/>
+        </class>
+        <class className="RecentPlacesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPlacesTVC.h"/>
+        </class>
+        <class className="TopPlacesTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TopPlacesTVC.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
