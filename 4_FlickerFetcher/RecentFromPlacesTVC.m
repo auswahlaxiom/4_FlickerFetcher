@@ -66,15 +66,18 @@
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *recent = [[defaults objectForKey:@"FlickrFetcherRecentPictures"] mutableCopy];
-    if(!recent) recent = [[NSMutableArray alloc] init];
-    
-    [recent addObject:[self.picturesData objectAtIndex:indexPath.row]];
 
-    if(recent.count > 20) {
-        [recent removeObjectAtIndex:0];
+    
+    NSMutableArray *newRecent = [[NSMutableArray alloc] initWithObjects:[self.picturesData objectAtIndex:indexPath.row], nil];
+    if(recent) {
+        [newRecent addObjectsFromArray:recent];
     }
     
-    [defaults setObject:[recent copy] forKey:@"FlickrFetcherRecentPictures"];
+    if(newRecent.count > 20) {
+        [newRecent removeObjectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(20, (newRecent.count-20))]];
+    }
+    
+    [defaults setObject:[newRecent copy] forKey:@"FlickrFetcherRecentPictures"];
 }
 
 @end

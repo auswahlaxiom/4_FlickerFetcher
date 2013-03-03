@@ -31,6 +31,13 @@
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.picturesData = [defaults objectForKey:@"FlickrFetcherRecentPictures"];
+    [self.tableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.picturesData = [defaults objectForKey:@"FlickrFetcherRecentPictures"];
+    [self.tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
