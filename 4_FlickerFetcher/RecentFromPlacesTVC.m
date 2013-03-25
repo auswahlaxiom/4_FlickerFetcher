@@ -29,10 +29,31 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+	
+    //use GCD to load data
+    dispatch_queue_t downlaodQueue = dispatch_queue_create("data downloader", NULL);
+    dispatch_async(downlaodQueue, ^{
+        NSArray *photos = [FlickrFetcher photosInPlace:self.place maxResults:50];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.picturesData = photos;
+            [spinner stopAnimating];
+        });
+    });
 
-    self.picturesData = [FlickrFetcher photosInPlace:self.place maxResults:50];
+    
 }
-
+- (void)setPicturesData:(NSArray *)data {
+    if(_picturesData != data) {
+        _picturesData = data;
+        if(self.tableView.window) [self.tableView reloadData];
+    }
+}
+- (NSArray *)picturesData {
+    return _picturesData;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

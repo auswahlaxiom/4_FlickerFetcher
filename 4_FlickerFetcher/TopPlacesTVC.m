@@ -31,7 +31,29 @@
 {
     [super viewDidLoad];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"_content" ascending:YES];
-    self.topData=[[FlickrFetcher topPlaces] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [spinner startAnimating];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:spinner];
+	
+    //use GCD to load data
+    dispatch_queue_t downlaodQueue = dispatch_queue_create("data downloader", NULL);
+    dispatch_async(downlaodQueue, ^{
+        NSArray *places = [[FlickrFetcher topPlaces] sortedArrayUsingDescriptors:[NSArray arrayWithObject:sort]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.topData = places;
+            [spinner stopAnimating];
+        });
+    });
+}
+
+- (void)setTopData:(NSArray *)data {
+    if(_topData != data) {
+        _topData = data;
+        if(self.tableView.window) [self.tableView reloadData];
+    }
+}
+- (NSArray *)topData {
+    return _topData;
 }
 
 - (void)didReceiveMemoryWarning
